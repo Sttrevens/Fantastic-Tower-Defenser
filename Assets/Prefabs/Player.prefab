@@ -206,16 +206,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  jumpForce: 9
-  groundLayers:
-  - serializedVersion: 2
-    m_Bits: 64
-  - serializedVersion: 2
-    m_Bits: 128
-  oneWayPlatformLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  dropThroughTime: 0.5
+  bulletPrefab: {fileID: 8044140472986345253, guid: a3f52412483a342b2a750897e95a9747, type: 3}
+  bulletSpeed: 10
+  fireRate: 0.5
 --- !u!114 &-8420023520714162344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,3 +244,4 @@ MonoBehaviour:
   - {fileID: -757916765, guid: 0f3769ae7e2194fd8938a6f46e70e8ba, type: 3}
   - {fileID: -2115782074, guid: 0f3769ae7e2194fd8938a6f46e70e8ba, type: 3}
   - {fileID: 2053801119, guid: 0f3769ae7e2194fd8938a6f46e70e8ba, type: 3}
+  unitPrefab: {fileID: 0}

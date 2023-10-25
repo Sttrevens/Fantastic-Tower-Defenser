@@ -7,6 +7,20 @@ public class CardInteraction : MonoBehaviour
 {
     public Image cardImage; // Drag the UI Image component here in the Inspector
     public Sprite[] cardSprites; // List of sprites that the Image can be changed to
+    public GameObject unitPrefab; // Drag the Unit prefab here in the Inspector
+
+    void Update()
+    {
+        if (cardImage.gameObject.activeInHierarchy && Input.GetKeyDown(KeyCode.J))
+        {
+            SpawnUnit();
+        }
+    }
+
+    void SpawnUnit()
+    {
+        Instantiate(unitPrefab, transform.position, Quaternion.identity);
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
