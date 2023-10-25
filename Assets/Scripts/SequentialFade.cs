@@ -9,26 +9,60 @@ public class SequentialFade : MonoBehaviour
     public float fadeInDuration = 1.0f;
     public float displayDuration = 1.0f;
     public float fadeOutDuration = 1.0f;
-    public float delayBetweenStarts = 0.5f; // Time to wait before starting the fade for the next object
+    public float delayBetweenStarts = 0.5f;
+
+    public GameObject enemyPrefab; // Drag your enemy prefab here
+    public Transform spawnPoint; // Drag the spawn point here
+    public float fadeEffectDuration = 10f; // Duration for which the fade effect runs
+
+    private bool isFading = false;
+    private bool continueFading = true;
 
     void Start()
     {
-        StartCoroutine(FadeLoop());
+        StartCoroutine(SpawnEnemy());
+    }
+
+    IEnumerator SpawnEnemy()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(2, 10));
+
+            Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+
+            // Start the fade effect when an enemy is spawned
+            StartCoroutine(FadeEffect());
+        }
+    }
+
+    IEnumerator FadeEffect()
+    {
+        if (!isFading) // Ensure the effect isn't already running
+        {
+            isFading = true;
+            continueFading = true;
+            StartCoroutine(FadeLoop());
+
+            // Stop the fade effect after a certain duration
+            yield return new WaitForSeconds(fadeEffectDuration);
+            continueFading = false;
+        }
     }
 
     IEnumerator FadeLoop()
     {
-        while (true)
+        while (continueFading)
         {
             foreach (var obj in objectsToFade)
             {
                 StartCoroutine(FadeObjectInOut(obj));
                 yield return new WaitForSeconds(delayBetweenStarts);
             }
-            // After fading all objects, wait for the duration of the last object's fade sequence 
-            // before starting the loop again.
+
             yield return new WaitForSeconds(fadeInDuration + displayDuration + fadeOutDuration);
         }
+        isFading = false;
     }
 
     IEnumerator FadeObjectInOut(GameObject obj)
