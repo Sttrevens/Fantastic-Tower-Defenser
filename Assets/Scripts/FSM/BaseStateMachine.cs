@@ -8,7 +8,9 @@ namespace FSM
     {
         [SerializeField] private BaseState _initialState;
 
-        public Rigidbody2D playerRb;
+        public float walkSpeed = -1.0f;
+        public float runSpeed = -2.0f;
+        public float hp = 4f;
         private void Awake()
         {
             CurrentState = _initialState;
@@ -21,14 +23,9 @@ namespace FSM
             CurrentState.Execute(this);
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void BloodMinus()
         {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                // 获取玩家的Rigidbody2D
-                playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
 
-            }
         }
     }
 }
