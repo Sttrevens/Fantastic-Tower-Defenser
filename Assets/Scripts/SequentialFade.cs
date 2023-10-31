@@ -11,7 +11,8 @@ public class SequentialFade : MonoBehaviour
     public float fadeOutDuration = 1.0f;
     public float delayBetweenStarts = 0.5f;
 
-    public GameObject enemyPrefab; // Drag your enemy prefab here
+    public List<GameObject> enemyPrefabs;
+    
     public Transform spawnPoint; // Drag the spawn point here
     public float fadeEffectDuration = 10f; // Duration for which the fade effect runs
 
@@ -28,8 +29,16 @@ public class SequentialFade : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(2, 10));
-
-            Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+            if (enemyPrefabs.Count > 0)
+            {
+                int randomIndex = Random.Range(0, enemyPrefabs.Count);
+                GameObject enemy = Instantiate(enemyPrefabs[randomIndex], spawnPoint.position, Quaternion.identity);
+            }
+            else
+            {
+                Debug.Log("No enemy prefabs assigned");
+            }
+            
 
             // Start the fade effect when an enemy is spawned
             StartCoroutine(FadeEffect());

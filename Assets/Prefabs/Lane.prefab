@@ -923,7 +923,9 @@ MonoBehaviour:
   displayDuration: 1.5
   fadeOutDuration: 0.2
   delayBetweenStarts: 0.1
-  enemyPrefab: {fileID: 7637728011202399725, guid: 5d52f30a271da4415b84095e8a426ad6, type: 3}
+  enemyPrefabs:
+  - {fileID: 7637728011202399725, guid: 5d52f30a271da4415b84095e8a426ad6, type: 3}
+  - {fileID: 7637728011202399725, guid: 43850ff1cb120574f8046706532f6697, type: 3}
   spawnPoint: {fileID: 5812675777763761196}
   fadeEffectDuration: 10
 --- !u!61 &4213549796081675954
