@@ -1,40 +1,87 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // Required for UI
+using UnityEngine.UI;
 
 public class CardInteraction : MonoBehaviour
 {
-    public Image cardImage; // Drag the UI Image component here in the Inspector
-    public Sprite[] cardSprites; // List of sprites that the Image can be changed to
-    public GameObject unitPrefab; // Drag the Unit prefab here in the Inspector
+    public static CardInteraction instance;
 
-    void Update()
+    public GameObject cardPlaceholderUI;
+    public GameObject[] skeletonCardPrefabs;
+    public GameObject[] infiniteAmmoCardPrefabs;
+    public GameObject[] bulletTimeCardPrefabs;
+
+    public string currentCardName;
+    private GameObject currentCardUI;  // To reference the instantiated UI card
+
+    public PlayerShooting playerShooting;
+
+    private void Awake()
     {
-        if (cardImage.gameObject.activeInHierarchy && Input.GetKeyDown(KeyCode.J))
+        if (instance == null)
         {
-            SpawnUnit();
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
-    void SpawnUnit()
+    public void BulletHitCard(string cardTag)
     {
-        Instantiate(unitPrefab, transform.position, Quaternion.identity);
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        // Check if player collides with a card object
-        if (other.gameObject.CompareTag("Card"))
+        GameObject selectedPrefab = null;
+        switch (cardTag)
         {
-            ChangeCardImage();
+            case "SkeletonCard":
+                currentCardName = "SkeletonCard";
+                selectedPrefab = skeletonCardPrefabs[Random.Range(0, skeletonCardPrefabs.Length)];
+                break;
+            case "InfiniteAmmoCard":
+                currentCardName = "InfiniteAmmoCard";
+                selectedPrefab = infiniteAmmoCardPrefabs[Random.Range(0, infiniteAmmoCardPrefabs.Length)];
+                break;
+            case "BulletTimeCard":
+                currentCardName = "BulletTimeCard";
+                selectedPrefab = bulletTimeCardPrefabs[Random.Range(0, bulletTimeCardPrefabs.Length)];
+                break;
+        }
+
+        // Instantiate the card image as a child of the placeholder and store its reference
+        if (selectedPrefab != null)
+        {
+            if (currentCardUI) Destroy(currentCardUI);
+            currentCardUI = Instantiate(selectedPrefab, cardPlaceholderUI.transform);
         }
     }
 
-    void ChangeCardImage()
+    public void UseCard()
     {
-        int randomIndex = Random.Range(0, cardSprites.Length);
-        cardImage.sprite = cardSprites[randomIndex]; // Set the image to a random sprite from the list
-        cardImage.gameObject.SetActive(true); // Make sure the image is active
+        switch (currentCardName)
+        {
+            case "SkeletonCard":
+                Instantiate(playerShooting.unitPrefab, playerShooting.transform.position, Quaternion.identity);
+                break;
+            case "InfiniteAmmoCard":
+                playerShooting.ActivateUnlimitedAmmo();
+                break;
+            case "BulletTimeCard":
+                StartCoroutine(BulletTime());
+                break;
+        }
+
+        // Remove the card from the UI and reset the currentCardName
+        if (currentCardUI)
+        {
+            Destroy(currentCardUI);
+            currentCardName = "";
+        }
+    }
+
+    private IEnumerator BulletTime()
+    {
+        Time.timeScale = 0.5f;
+        yield return new WaitForSecondsRealtime(5f); // Use real time as the game time is slowed down
+        Time.timeScale = 1f;
     }
 }

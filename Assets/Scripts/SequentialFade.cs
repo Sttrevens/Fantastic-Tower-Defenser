@@ -19,6 +19,9 @@ public class SequentialFade : MonoBehaviour
     private bool isFading = false;
     private bool continueFading = true;
 
+    public int spawnRangefrom = 2;
+    public int spawnRangeto = 10;
+
     void Start()
     {
         StartCoroutine(SpawnEnemy());
@@ -28,7 +31,7 @@ public class SequentialFade : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(2, 10));
+            yield return new WaitForSeconds(Random.Range(spawnRangefrom, spawnRangeto));
             if (enemyPrefabs.Count > 0)
             {
                 int randomIndex = Random.Range(0, enemyPrefabs.Count);

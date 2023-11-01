@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 6216100434693567697}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.68, z: 0}
+  m_LocalPosition: {x: 0, y: 0.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 8598760446868684993}
   - component: {fileID: -8420023520714162344}
   - component: {fileID: 352949105177743152}
+  - component: {fileID: 8320592636492240688}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -63,8 +64,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.07, y: 0.07, z: 0}
-  m_LocalScale: {x: 0.20861028, y: 0.20861028, z: 0.20861028}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7056440039855995949}
   m_Father: {fileID: 0}
@@ -110,7 +111,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1638603133, guid: f34b926ad0b3a4356b9b0ccdceead126, type: 3}
+  m_Sprite: {fileID: 1687422365, guid: 8e6a8c26158704b729b13d2048c8b4c2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -153,18 +154,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 4.085}
+  m_Offset: {x: -0.030714989, y: 1.4502028}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 4.02, y: 8.17}
+    pivot: {x: 0.45655224, y: 0.21883273}
+    oldSize: {x: 5.4908953, y: 4.36}
     newSize: {x: 4.02, y: 8.17}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.02, y: 8.17}
+  m_Size: {x: 3.1631756, y: 2.9004056}
   m_EdgeRadius: 0
 --- !u!50 &9099370953694451736
 Rigidbody2D:
@@ -181,7 +182,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -222,9 +223,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 8044140472986345253, guid: a3f52412483a342b2a750897e95a9747, type: 3}
+  unitPrefab: {fileID: 617605019876173242, guid: cd8d73e8c494444d88c20f55f4c37a04, type: 3}
   bulletSpeed: 15
   firePoint: {fileID: 7056440039855995949}
-  ammo: 5
+  ammo: 1
   ammoText: {fileID: 0}
 --- !u!114 &352949105177743152
 MonoBehaviour:
@@ -238,10 +240,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42108756186034a25ae655f79f76b43e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 0}
-  cardSprites:
-  - {fileID: 1553708288, guid: 0f3769ae7e2194fd8938a6f46e70e8ba, type: 3}
-  - {fileID: -757916765, guid: 0f3769ae7e2194fd8938a6f46e70e8ba, type: 3}
-  - {fileID: -2115782074, guid: 0f3769ae7e2194fd8938a6f46e70e8ba, type: 3}
-  - {fileID: 2053801119, guid: 0f3769ae7e2194fd8938a6f46e70e8ba, type: 3}
-  unitPrefab: {fileID: 0}
+  cardPlaceholderUI: {fileID: 0}
+  skeletonCardPrefabs:
+  - {fileID: 7107482838022370645, guid: 4495c021fb5f6423bb3bf7b0361c9f83, type: 3}
+  infiniteAmmoCardPrefabs:
+  - {fileID: 8795571936885352612, guid: 4f02c5bc99fb245529caa24e7f59aabe, type: 3}
+  bulletTimeCardPrefabs:
+  - {fileID: 8795571936885352612, guid: 496a2d3f89999499b9527baaac4c74fb, type: 3}
+  currentCardName: 
+  playerShooting: {fileID: -8420023520714162344}
+--- !u!95 &8320592636492240688
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8237842042694698862}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8e5830f4ba0ff4c72b57619248127c9e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

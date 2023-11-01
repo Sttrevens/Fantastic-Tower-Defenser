@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
         bulletRb.velocity = transform.right * bulletSpeed; // since in top down right direction of player will be the forward direction
     }
 
-    void ReloadScene()
+    public void ReloadScene()
     {
         // Get the current active scene and reload it
         Scene currentScene = SceneManager.GetActiveScene();

@@ -1,13 +1,17 @@
 using UnityEngine;
 using TMPro; // Required for TextMeshPro
+using System.Collections;
 
 public class PlayerShooting : MonoBehaviour
 {
     public GameObject bulletPrefab;
+    public GameObject unitPrefab; // For spawning the unit
     public float bulletSpeed = 10f;
     public Transform firePoint;
     public int ammo = 1; // Starting ammo amount
-    public TMP_Text ammoText; // Reference to the TextMeshProUGUI component to display ammo
+    public TMP_Text ammoText; // Reference to display ammo
+
+    private bool hasUnlimitedAmmo = false;
 
     private void Start()
     {
@@ -18,11 +22,20 @@ public class PlayerShooting : MonoBehaviour
     {
         HandleAiming();
 
-        if (Input.GetMouseButtonDown(0) && ammo > 0) // Left mouse button to shoot & Check for ammo
+        if (Input.GetMouseButtonDown(0) && (hasUnlimitedAmmo || ammo > 0)) // Also allow shooting if unlimited ammo
         {
             Shoot();
-            ammo--;
-            UpdateAmmoText();
+            if (!hasUnlimitedAmmo)
+            {
+                ammo--;
+                UpdateAmmoText();
+            }
+        }
+
+        // Check for card activation
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            CardInteraction.instance.UseCard();
         }
     }
 
@@ -58,5 +71,17 @@ public class PlayerShooting : MonoBehaviour
     void UpdateAmmoText()
     {
         ammoText.text = ammo.ToString();
+    }
+
+    public void ActivateUnlimitedAmmo()
+    {
+        hasUnlimitedAmmo = true;
+        StartCoroutine(DeactivateUnlimitedAmmo());
+    }
+
+    private IEnumerator DeactivateUnlimitedAmmo()
+    {
+        yield return new WaitForSeconds(5f);
+        hasUnlimitedAmmo = false;
     }
 }

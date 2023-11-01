@@ -18,9 +18,18 @@ public class BulletBehavior : MonoBehaviour
         {
             stateMachine = other.gameObject.GetComponent<BaseStateMachine>();
             stateMachine.BloodMinus();
-            if (gameObject != null) { Destroy(gameObject); }
-            
+            if (gameObject != null)
+            { Destroy(gameObject); }
+        }
 
+        if (other.gameObject.CompareTag("SkeletonCard") || other.gameObject.CompareTag("InfiniteAmmoCard") || other.gameObject.CompareTag("BulletTimeCard"))
+        {
+            // Inform the CardInteraction script
+            CardInteraction.instance.BulletHitCard(other.gameObject.tag);
+
+            // Optionally destroy the bullet after the collision
+            Destroy(gameObject);
+            Destroy(other.gameObject);
         }
     }
 }
