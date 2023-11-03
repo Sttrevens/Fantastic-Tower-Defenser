@@ -16,6 +16,12 @@ public class CardInteraction : MonoBehaviour
 
     public PlayerShooting playerShooting;
 
+    private float detectionRange = 1.0f; // Adjust the detection range as needed
+    private LayerMask oneWayPlatformLayer;
+
+    public Transform upSpawnPoint;
+    public Transform downSpawnPoint;
+
     private void Awake()
     {
         if (instance == null)
@@ -60,21 +66,49 @@ public class CardInteraction : MonoBehaviour
         switch (currentCardName)
         {
             case "SkeletonCard":
-                Instantiate(playerShooting.unitPrefab, playerShooting.transform.position, Quaternion.identity);
+                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                // Check if the player is pressing W or S
+                //if (Input.GetKey(KeyCode.W))
+                //{
+                //    Instantiate(playerShooting.unitPrefab, mousePosition, Quaternion.identity);
+                //    if (currentCardUI)
+                //    {
+                //        Destroy(currentCardUI);
+                //        currentCardName = "";
+                //    }
+                //}
+                //else if (Input.GetKey(KeyCode.S))
+                //{
+                //    Instantiate(playerShooting.unitPrefab, mousePosition, Quaternion.identity);
+                //    if (currentCardUI)
+                //    {
+                //        Destroy(currentCardUI);
+                //        currentCardName = "";
+                //    }
+                //}
+                Instantiate(playerShooting.unitPrefab, mousePosition, Quaternion.identity);
+                if (currentCardUI)
+                {
+                    Destroy(currentCardUI);
+                    currentCardName = "";
+                }
                 break;
             case "InfiniteAmmoCard":
-                playerShooting.ActivateUnlimitedAmmo();
+                playerShooting.ActivateUnlimitedShooting();
+                if (currentCardUI)
+                {
+                    Destroy(currentCardUI);
+                    currentCardName = "";
+                }
                 break;
             case "BulletTimeCard":
                 StartCoroutine(BulletTime());
+                if (currentCardUI)
+                {
+                    Destroy(currentCardUI);
+                    currentCardName = "";
+                }
                 break;
-        }
-
-        // Remove the card from the UI and reset the currentCardName
-        if (currentCardUI)
-        {
-            Destroy(currentCardUI);
-            currentCardName = "";
         }
     }
 

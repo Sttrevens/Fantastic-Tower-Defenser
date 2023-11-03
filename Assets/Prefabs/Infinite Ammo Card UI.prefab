@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7259321509680370062}
   - component: {fileID: 4081625348388469142}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Slime_Protag_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9042531996784053168}
   - component: {fileID: 8023975874822280869}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Infinite Ammo Card UI
   m_TagString: InfiniteAmmoCard
   m_Icon: {fileID: 0}

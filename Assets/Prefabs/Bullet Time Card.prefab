@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1852773620475001775}
   - component: {fileID: 8567984572066289721}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: slow-sprite-sheet_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 2855554519815504358}
   - component: {fileID: 8807207733846696774}
   - component: {fileID: 4286671577910736715}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Bullet Time Card
   m_TagString: BulletTimeCard
   m_Icon: {fileID: 0}

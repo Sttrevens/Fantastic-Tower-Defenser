@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3650141755062194445}
   - component: {fileID: 8979484784959251232}
   - component: {fileID: 950602101058115265}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,8 +119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee5a86ec7336340a58c15b78946d0d91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 1.5
-  bulletPrefab: {fileID: 8044140472986345253, guid: a3f52412483a342b2a750897e95a9747, type: 3}
+  detectionRange: 2
   bulletSpeed: 5
   firePoint: {fileID: 8545895769747476573}
-  shootingInterval: 0.3
+  shootingInterval: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256

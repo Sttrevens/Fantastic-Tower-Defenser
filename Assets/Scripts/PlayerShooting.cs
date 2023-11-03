@@ -5,35 +5,40 @@ using System.Collections;
 public class PlayerShooting : MonoBehaviour
 {
     public GameObject bulletPrefab;
-    public GameObject unitPrefab; // For spawning the unit
     public float bulletSpeed = 10f;
     public Transform firePoint;
-    public int ammo = 1; // Starting ammo amount
-    public TMP_Text ammoText; // Reference to display ammo
+    public TMP_Text ammoText; // Reference to display cooldown
+    public bool freeAimingEnabled = true; // Set this to true if free aiming is allowed
 
-    private bool hasUnlimitedAmmo = false;
+    private float shootCooldown = 1.0f; // Cooldown time between shots
+    private float nextShootTime = 0f; // When the player can shoot next
+    private bool isUnlimitedShootingActive = false;
 
-    private void Start()
-    {
-        UpdateAmmoText();
-    }
+    public GameObject unitPrefab;
 
     void Update()
     {
-        HandleAiming();
-
-        if (Input.GetMouseButtonDown(0) && (hasUnlimitedAmmo || ammo > 0)) // Also allow shooting if unlimited ammo
+        // Allow shooting based on cooldown
+        if (Input.GetMouseButtonDown(0) && Time.time >= nextShootTime)
         {
             Shoot();
-            if (!hasUnlimitedAmmo)
+            if (!isUnlimitedShootingActive)
             {
-                ammo--;
-                UpdateAmmoText();
+                nextShootTime = Time.time + shootCooldown; // Set the next allowed shooting time
             }
         }
 
+        if (freeAimingEnabled)
+        {
+            HandleAiming();
+        }
+        else
+        {
+            firePoint.right = Vector2.right; // Always aim to the right if free aiming is disabled
+        }
+
         // Check for card activation
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             CardInteraction.instance.UseCard();
         }
@@ -49,39 +54,23 @@ public class PlayerShooting : MonoBehaviour
 
     void Shoot()
     {
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        // Shoot in the direction of the fire point if free aiming, otherwise to the right
+        Vector2 shootingDirection = freeAimingEnabled ? firePoint.right : Vector2.right;
+
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.Euler(0, 0, freeAimingEnabled ? firePoint.eulerAngles.z : 0));
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        rb.velocity = firePoint.right * bulletSpeed; // since we're using the firePoint's direction
+        rb.velocity = shootingDirection * bulletSpeed;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public void ActivateUnlimitedShooting()
     {
-        // Check if player collides with a dice object
-        if (other.gameObject.CompareTag("Dice"))
-        {
-            // Refill ammo by a random amount between 1 and 6
-            ammo += Random.Range(1, 7); // Note: Random.Range with integers is inclusive on the min and exclusive on the max
-            UpdateAmmoText();
-
-            // Destroy the dice object after collecting
-            //Destroy(other.gameObject);
-        }
+        isUnlimitedShootingActive = true;
+        StartCoroutine(DeactivateUnlimitedShooting());
     }
 
-    void UpdateAmmoText()
-    {
-        ammoText.text = ammo.ToString();
-    }
-
-    public void ActivateUnlimitedAmmo()
-    {
-        hasUnlimitedAmmo = true;
-        StartCoroutine(DeactivateUnlimitedAmmo());
-    }
-
-    private IEnumerator DeactivateUnlimitedAmmo()
+    private IEnumerator DeactivateUnlimitedShooting()
     {
         yield return new WaitForSeconds(5f);
-        hasUnlimitedAmmo = false;
+        isUnlimitedShootingActive = false;
     }
 }

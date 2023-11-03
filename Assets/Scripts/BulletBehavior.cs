@@ -22,14 +22,14 @@ public class BulletBehavior : MonoBehaviour
             { Destroy(gameObject); }
         }
 
-        if (other.gameObject.CompareTag("SkeletonCard") || other.gameObject.CompareTag("InfiniteAmmoCard") || other.gameObject.CompareTag("BulletTimeCard"))
-        {
-            // Inform the CardInteraction script
-            CardInteraction.instance.BulletHitCard(other.gameObject.tag);
+        //if (other.gameObject.CompareTag("SkeletonCard") || other.gameObject.CompareTag("InfiniteAmmoCard") || other.gameObject.CompareTag("BulletTimeCard"))
+        //{
+        //    // Inform the CardInteraction script
+        //    CardInteraction.instance.BulletHitCard(other.gameObject.tag);
 
-            // Optionally destroy the bullet after the collision
-            Destroy(gameObject);
-            Destroy(other.gameObject);
-        }
+        //    // Optionally destroy the bullet after the collision
+        //    Destroy(gameObject);
+        //    Destroy(other.gameObject);
+        //}
     }
 }

@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
         {
             ReloadScene();
         }
+
+        CardSelection();
     }
 
     void HandleMovement()
@@ -70,5 +72,28 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
+    }
+
+    void CardSelection()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Cast a ray from the camera to the mouse position
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
+
+            if (hit.collider != null)
+            {
+                // Check if the object hit has one of the specified tags
+                if (hit.collider.CompareTag("SkeletonCard") || hit.collider.CompareTag("InfiniteAmmoCard") || hit.collider.CompareTag("BulletTimeCard"))
+                {
+                    // Inform the CardInteraction script
+                    CardInteraction.instance.BulletHitCard(hit.collider.tag);
+
+                    // Optionally destroy the card object after clicking
+                    Destroy(hit.collider.gameObject);
+                }
+            }
+        }
     }
 }

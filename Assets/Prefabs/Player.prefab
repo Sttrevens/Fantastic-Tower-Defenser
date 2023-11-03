@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1860895588166141424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8889586473108384364}
+  m_Layer: 3
+  m_Name: Up Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8889586473108384364
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860895588166141424}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.33, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1165385740513977423}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6216100434693567697
 GameObject:
   m_ObjectHideFlags: 0
@@ -68,6 +99,8 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7056440039855995949}
+  - {fileID: 8889586473108384364}
+  - {fileID: 8294032270999982692}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8510889548625320617
@@ -110,7 +143,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1687422365, guid: 8e6a8c26158704b729b13d2048c8b4c2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -223,11 +256,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 8044140472986345253, guid: a3f52412483a342b2a750897e95a9747, type: 3}
-  unitPrefab: {fileID: 617605019876173242, guid: cd8d73e8c494444d88c20f55f4c37a04, type: 3}
   bulletSpeed: 15
   firePoint: {fileID: 7056440039855995949}
-  ammo: 1
   ammoText: {fileID: 0}
+  freeAimingEnabled: 1
+  unitPrefab: {fileID: 617605019876173242, guid: cd8d73e8c494444d88c20f55f4c37a04, type: 3}
 --- !u!114 &352949105177743152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +282,8 @@ MonoBehaviour:
   - {fileID: 8795571936885352612, guid: 496a2d3f89999499b9527baaac4c74fb, type: 3}
   currentCardName: 
   playerShooting: {fileID: -8420023520714162344}
+  upSpawnPoint: {fileID: 8889586473108384364}
+  downSpawnPoint: {fileID: 8294032270999982692}
 --- !u!95 &8320592636492240688
 Animator:
   serializedVersion: 5
@@ -270,3 +305,34 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &8589845963039559103
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8294032270999982692}
+  m_Layer: 3
+  m_Name: Down Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8294032270999982692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8589845963039559103}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -2.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1165385740513977423}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

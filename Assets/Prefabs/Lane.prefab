@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5940422877748196746}
   - component: {fileID: 4555094084356453163}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7811040464322883214}
   - component: {fileID: 5567796811513942479}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4705657088274190836}
   - component: {fileID: 731076274023566712}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7863503718597740024}
   - component: {fileID: 85193492861058962}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 971089688522772623}
   - component: {fileID: 8396617358337879103}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +445,7 @@ Transform:
   m_GameObject: {fileID: 2123553030005590666}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.76, y: 17.9, z: 0}
+  m_LocalPosition: {x: 9.76, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -461,7 +461,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8737054347334039768}
   - component: {fileID: 7760993782831419159}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -545,7 +545,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4389112603613504533}
   - component: {fileID: 3993190659503643298}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -629,7 +629,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3383571817710285319}
   - component: {fileID: 2687287665346546417}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -713,7 +713,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3628599999903783322}
   - component: {fileID: 9196481111946297319}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -928,6 +928,8 @@ MonoBehaviour:
   - {fileID: 7637728011202399725, guid: 43850ff1cb120574f8046706532f6697, type: 3}
   spawnPoint: {fileID: 5812675777763761196}
   fadeEffectDuration: 10
+  spawnRangefrom: 2
+  spawnRangeto: 10
 --- !u!61 &4213549796081675954
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -957,7 +959,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -983,7 +985,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4247554552050659778}
   - component: {fileID: 1452068556928685232}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1067,7 +1069,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3971344629766916726}
   - component: {fileID: 8099681996233658775}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1151,7 +1153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2253794551626482338}
   - component: {fileID: 7688244945573956620}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1235,7 +1237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4683127882911697600}
   - component: {fileID: 2740863187574960942}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1319,7 +1321,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2775776898681938138}
   - component: {fileID: 8888477246108540419}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1403,7 +1405,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7229512373538519228}
   - component: {fileID: 907305877094982265}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1487,7 +1489,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6661019186353924243}
   - component: {fileID: 7868126911968245283}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Triangle (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

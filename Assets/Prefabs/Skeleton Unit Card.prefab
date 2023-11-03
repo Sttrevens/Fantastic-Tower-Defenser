@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1321152091573800453}
   - component: {fileID: 7412436763688992973}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Skeleton_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 1371163389835466206}
   - component: {fileID: 4807197524697895025}
   - component: {fileID: 3669383365548505652}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Skeleton Unit Card
   m_TagString: SkeletonCard
   m_Icon: {fileID: 0}
