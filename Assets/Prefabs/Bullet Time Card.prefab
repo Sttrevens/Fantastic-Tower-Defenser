@@ -187,9 +187,8 @@ MonoBehaviour:
   _initialState: {fileID: 11400000, guid: 2d4b5b4175585964d887355a1d40e72d, type: 2}
   walkSpeed: -1
   runSpeed: -1
-  maxHp: 4
+  hp: 1
   currenthp: 1
-  healthBar: {fileID: 0}
 --- !u!61 &8807207733846696774
 BoxCollider2D:
   m_ObjectHideFlags: 0
