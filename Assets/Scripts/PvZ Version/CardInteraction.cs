@@ -17,7 +17,7 @@ public class CardInteraction : MonoBehaviour
     public PlayerShooting playerShooting;
 
     private float detectionRange = 1.0f; // Adjust the detection range as needed
-    private LayerMask oneWayPlatformLayer;
+    public LayerMask oneWayPlatformLayer;
 
     public Transform upSpawnPoint;
     public Transform downSpawnPoint;
@@ -71,30 +71,20 @@ public class CardInteraction : MonoBehaviour
         {
             case "SkeletonCard":
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                // Check if the player is pressing W or S
-                //if (Input.GetKey(KeyCode.W))
-                //{
-                //    Instantiate(playerShooting.unitPrefab, mousePosition, Quaternion.identity);
-                //    if (currentCardUI)
-                //    {
-                //        Destroy(currentCardUI);
-                //        currentCardName = "";
-                //    }
-                //}
-                //else if (Input.GetKey(KeyCode.S))
-                //{
-                //    Instantiate(playerShooting.unitPrefab, mousePosition, Quaternion.identity);
-                //    if (currentCardUI)
-                //    {
-                //        Destroy(currentCardUI);
-                //        currentCardName = "";
-                //    }
-                //}
-                Instantiate(playerShooting.unitPrefab, mousePosition, Quaternion.identity);
-                if (currentCardUI)
+                RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, oneWayPlatformLayer);
+
+                if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("OneWayPlatform"))
                 {
-                    Destroy(currentCardUI);
-                    currentCardName = "";
+                    Instantiate(playerShooting.unitPrefab, hit.point, Quaternion.identity);
+                    if (currentCardUI)
+                    {
+                        Destroy(currentCardUI);
+                        currentCardName = "";
+                    }
+                }
+                else
+                {
+
                 }
                 break;
             case "InfiniteAmmoCard":
@@ -103,7 +93,7 @@ public class CardInteraction : MonoBehaviour
                 {
                     foreach (CardCoolDown cardCoolDown in cardCoolDowns)
                     {
-                        StartCoroutine(cardCoolDown.EnlargeAndDestroy(currentCardUI, cardAbilityDuration));
+                        StartCoroutine(cardCoolDown.FadeOutAndDestroy(currentCardUI, cardAbilityDuration));
                         currentCardName = "";
                     }
                 }
@@ -114,7 +104,7 @@ public class CardInteraction : MonoBehaviour
                 {
                     foreach (CardCoolDown cardCoolDown in cardCoolDowns)
                     {
-                        StartCoroutine(cardCoolDown.EnlargeAndDestroy(currentCardUI, cardAbilityDuration));
+                        StartCoroutine(cardCoolDown.FadeOutAndDestroy(currentCardUI, cardAbilityDuration));
                         currentCardName = "";
                     }
                 }
@@ -128,29 +118,4 @@ public class CardInteraction : MonoBehaviour
         yield return new WaitForSecondsRealtime(cardAbilityDuration); // Use real time as the game time is slowed down
         Time.timeScale = 1f;
     }
-
-    //private IEnumerator FadeOutAndDestroy(GameObject obj, float duration)
-    //{
-    //    Image image = obj.GetComponent<Image>();
-    //    SpriteRenderer sprite = obj.GetComponent<SpriteRenderer>();
-    //    float elapsedTime = 0;
-    //    Color originalColor = image != null ? image.color : sprite.color;
-
-    //    while (elapsedTime < duration)
-    //    {
-    //        elapsedTime += Time.deltaTime;
-    //        float alpha = Mathf.Clamp01(1 - (elapsedTime / duration));
-    //        if (image != null)
-    //        {
-    //            image.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
-    //        }
-    //        else if (sprite != null)
-    //        {
-    //            sprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
-    //        }
-    //        yield return null;
-    //    }
-
-    //    Destroy(obj);
-    //}
 }

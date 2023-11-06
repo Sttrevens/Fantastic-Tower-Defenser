@@ -1,14 +1,23 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class CardCoolDown : MonoBehaviour
 {
-    public RectTransform cooldownBarRect;
+    public Transform cooldownBarRect;
     private float originalScaleY; // To keep the original Y scale
+    private float newYScale;
 
     void Awake()
     {
-        originalScaleY = 1f;
+        originalScaleY = 1f; 
+        float startScaleY = 0f; // Start from 0 scale
+        cooldownBarRect.localScale = new Vector3(cooldownBarRect.localScale.x, startScaleY, cooldownBarRect.localScale.z);
+    }
+
+    void Update()
+    {
+
     }
 
     public void SetCoolDownProgress(float current, float max)
@@ -20,21 +29,63 @@ public class CardCoolDown : MonoBehaviour
         cooldownBarRect.localScale = new Vector3(cooldownBarRect.localScale.x, scaleY, cooldownBarRect.localScale.z);
     }
 
+    public void Enlarge(float duration)
+    {
+
+    }
+
     public IEnumerator EnlargeAndDestroy(GameObject obj, float duration)
     {
+        Debug.Log("Coroutine started for object: " + obj.name);
+
         float elapsedTime = 0;
-
-        // If the current scale is 0, we will animate from 0 to the original Y scale
-        float startScaleY = 0f;
-
-        // Ensure the current scale is set to 0 to start with (as it should be, based on your description)
-        cooldownBarRect.localScale = new Vector3(cooldownBarRect.localScale.x, startScaleY, cooldownBarRect.localScale.z);
 
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
-            float newYScale = Mathf.Lerp(startScaleY, originalScaleY, elapsedTime / duration);
+            newYScale = elapsedTime / duration;
+            Debug.Log(cooldownBarRect.localScale);
             cooldownBarRect.localScale = new Vector3(cooldownBarRect.localScale.x, newYScale, cooldownBarRect.localScale.z);
+            yield return null;
+        }
+
+        Debug.Log("Destroying object: " + obj.name);
+        Destroy(obj);
+    }
+
+    public IEnumerator FadeOutAndDestroy(GameObject obj, float duration)
+    {
+        Image[] images = obj.GetComponentsInChildren<Image>();
+        SpriteRenderer[] sprites = obj.GetComponentsInChildren<SpriteRenderer>();
+
+        float elapsedTime = 0;
+
+        Color[] originalImageColors = new Color[images.Length];
+        for (int i = 0; i < images.Length; i++)
+        {
+            originalImageColors[i] = images[i].color;
+        }
+
+        Color[] originalSpriteColors = new Color[sprites.Length];
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            originalSpriteColors[i] = sprites[i].color;
+        }
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Clamp01(1 - (elapsedTime / duration));
+
+            for (int i = 0; i < images.Length; i++)
+            {
+                images[i].color = new Color(originalImageColors[i].r, originalImageColors[i].g, originalImageColors[i].b, alpha);
+            }
+            for (int i = 0; i < sprites.Length; i++)
+            {
+                sprites[i].color = new Color(originalSpriteColors[i].r, originalSpriteColors[i].g, originalSpriteColors[i].b, alpha);
+            }
+
             yield return null;
         }
 

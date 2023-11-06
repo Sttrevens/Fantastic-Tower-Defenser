@@ -283,6 +283,9 @@ MonoBehaviour:
   - {fileID: 8795571936885352612, guid: 496a2d3f89999499b9527baaac4c74fb, type: 3}
   currentCardName: 
   playerShooting: {fileID: -8420023520714162344}
+  oneWayPlatformLayer:
+    serializedVersion: 2
+    m_Bits: 128
   upSpawnPoint: {fileID: 8889586473108384364}
   downSpawnPoint: {fileID: 8294032270999982692}
   cardAbilityDuration: 5
