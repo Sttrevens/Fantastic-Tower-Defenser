@@ -1,4 +1,6 @@
+using FSM;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +27,9 @@ public class CardInteraction : MonoBehaviour
     public float cardAbilityDuration = 5.0f;
 
     public CardCoolDown[] cardCoolDowns;
+
+    private AudioSource theworldAS;
+    private List<BaseStateMachine> fsmL;
 
     private void Awake()
     {
@@ -109,6 +114,7 @@ public class CardInteraction : MonoBehaviour
                 }
                 break;
             case "BulletTimeCard":
+                theworldAS = GameObject.Find("theworld_audio").GetComponent<AudioSource>();
                 StartCoroutine(BulletTime());
                 if (currentCardUI)
                 {
@@ -124,9 +130,22 @@ public class CardInteraction : MonoBehaviour
 
     private IEnumerator BulletTime()
     {
-        Time.timeScale = 0.5f;
+        fsmL = new List<BaseStateMachine>();
+        fsmL.AddRange(FindObjectsOfType<BaseStateMachine>());
+        foreach (var bsm in fsmL)
+        {
+            bsm.runSpeed *= 0.01f;
+            bsm.walkSpeed *= 0.01f;
+        }
+        theworldAS.Play();
+        
         yield return new WaitForSecondsRealtime(cardAbilityDuration); // Use real time as the game time is slowed down
-        Time.timeScale = 1f;
+        foreach (var bsm in fsmL)
+        {
+            bsm.runSpeed *= 100f;
+            bsm.walkSpeed *= 100f;
+        }
+        
     }
 
     //private IEnumerator FadeOutAndDestroy(GameObject obj, float duration)
