@@ -1,4 +1,6 @@
+using FSM;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +27,10 @@ public class CardInteraction : MonoBehaviour
     public float cardAbilityDuration = 5.0f;
 
     public CardCoolDown[] cardCoolDowns;
+    private AudioSource theworldAS;
+    private List<BaseStateMachine> fsmL;
+    private AudioSource machinegunAS;
+    private GameObject bluecover;
 
     private void Awake()
     {
@@ -89,6 +95,8 @@ public class CardInteraction : MonoBehaviour
                 break;
             case "InfiniteAmmoCard":
                 playerShooting.ActivateUnlimitedShooting();
+                machinegunAS = GameObject.Find("machinegun_audio").GetComponent<AudioSource>();
+                machinegunAS.Play();
                 if (currentCardUI)
                 {
                     foreach (CardCoolDown cardCoolDown in cardCoolDowns)
@@ -99,7 +107,11 @@ public class CardInteraction : MonoBehaviour
                 }
                 break;
             case "BulletTimeCard":
-                StartCoroutine(BulletTime());
+                theworldAS = GameObject.Find("theworld_audio").GetComponent<AudioSource>();
+                bluecover = GameObject.Find("blue_cover");
+                SpriteRenderer sr = bluecover.GetComponent<SpriteRenderer>();
+                
+                StartCoroutine(BulletTime(sr));
                 if (currentCardUI)
                 {
                     foreach (CardCoolDown cardCoolDown in cardCoolDowns)
@@ -112,10 +124,24 @@ public class CardInteraction : MonoBehaviour
         }
     }
 
-    private IEnumerator BulletTime()
+    private IEnumerator BulletTime(SpriteRenderer sr)
     {
-        Time.timeScale = 0.5f;
+        sr.enabled = true;
+        fsmL = new List<BaseStateMachine>();
+        fsmL.AddRange(FindObjectsOfType<BaseStateMachine>());
+        foreach (var bsm in fsmL)
+        {
+            bsm.runSpeed *= 0.01f;
+            bsm.walkSpeed *= 0.01f;
+        }
+        theworldAS.Play();
+
         yield return new WaitForSecondsRealtime(cardAbilityDuration); // Use real time as the game time is slowed down
-        Time.timeScale = 1f;
+        sr.enabled = false;
+        foreach (var bsm in fsmL)
+        {
+            bsm.runSpeed *= 100f;
+            bsm.walkSpeed *= 100f;
+        }
     }
 }

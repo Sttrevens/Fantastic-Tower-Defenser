@@ -83,7 +83,10 @@ public class CardCoolDown : MonoBehaviour
             }
             for (int i = 0; i < sprites.Length; i++)
             {
-                sprites[i].color = new Color(originalSpriteColors[i].r, originalSpriteColors[i].g, originalSpriteColors[i].b, alpha);
+                if (sprites[i] != null)
+                {
+                    sprites[i].color = new Color(originalSpriteColors[i].r, originalSpriteColors[i].g, originalSpriteColors[i].b, alpha);
+                }
             }
 
             yield return null;
