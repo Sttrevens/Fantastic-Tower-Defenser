@@ -18,13 +18,26 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
-        // Allow shooting based on cooldown
-        if (Input.GetMouseButtonDown(0) && Time.time >= nextShootTime)
+        if (freeAimingEnabled)
         {
-            Shoot();
-            if (!isUnlimitedShootingActive)
+            if (Input.GetMouseButtonDown(0) && Time.time >= nextShootTime)
             {
-                nextShootTime = Time.time + shootCooldown; // Set the next allowed shooting time
+                Shoot();
+                if (!isUnlimitedShootingActive)
+                {
+                    nextShootTime = Time.time + shootCooldown; // Set the next allowed shooting time
+                }
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && Time.time >= nextShootTime)
+            {
+                Shoot();
+                if (!isUnlimitedShootingActive)
+                {
+                    nextShootTime = Time.time + shootCooldown; // Set the next allowed shooting time
+                }
             }
         }
 
@@ -70,7 +83,7 @@ public class PlayerShooting : MonoBehaviour
 
     private IEnumerator DeactivateUnlimitedShooting()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(CardInteraction.instance.cardAbilityDuration);
         isUnlimitedShootingActive = false;
     }
 }

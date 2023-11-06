@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 moveVelocity;
 
+    public Transform selectedCard; // The current card under the mouse
+    private Vector3 originalSize; // To keep the original scale
+    private Vector3 enlargedSize;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,6 +33,7 @@ public class PlayerController : MonoBehaviour
             ReloadScene();
         }
 
+        CardHover();
         CardSelection();
     }
 
@@ -74,26 +79,53 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
     }
 
-    void CardSelection()
+    void CardHover()
     {
-        if (Input.GetMouseButtonDown(0))
+        // Cast a ray from the camera to the mouse position
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
+
+        if (hit.collider != null)
         {
-            // Cast a ray from the camera to the mouse position
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
-
-            if (hit.collider != null)
+            // Check if the object hit is a card
+            if (hit.collider.CompareTag("SkeletonCard") || hit.collider.CompareTag("InfiniteAmmoCard") || hit.collider.CompareTag("BulletTimeCard"))
             {
-                // Check if the object hit has one of the specified tags
-                if (hit.collider.CompareTag("SkeletonCard") || hit.collider.CompareTag("InfiniteAmmoCard") || hit.collider.CompareTag("BulletTimeCard"))
+                if (selectedCard != hit.transform)
                 {
-                    // Inform the CardInteraction script
-                    CardInteraction.instance.BulletHitCard(hit.collider.tag);
+                    // Reset the previous selected card
+                    if (selectedCard != null)
+                    {
+                        selectedCard.localScale = originalSize;
+                    }
 
-                    // Optionally destroy the card object after clicking
-                    Destroy(hit.collider.gameObject);
+                    // Set the new selected card
+                    selectedCard = hit.transform;
+                    originalSize = selectedCard.localScale;
+                    enlargedSize = originalSize * 1.1f; // 10% larger, adjust as needed
+                    selectedCard.localScale = enlargedSize;
                 }
             }
+        }
+        else
+        {
+            // If we're no longer hovering over a card, reset it
+            if (selectedCard != null)
+            {
+                selectedCard.localScale = originalSize;
+                selectedCard = null;
+            }
+        }
+    }
+
+    void CardSelection()
+    {
+        if (Input.GetMouseButtonDown(0) && selectedCard != null)
+        {
+            // Inform the CardInteraction script
+            CardInteraction.instance.BulletHitCard(selectedCard.tag);
+
+            // Optionally destroy the card object after clicking
+            Destroy(selectedCard.gameObject);
         }
     }
 }

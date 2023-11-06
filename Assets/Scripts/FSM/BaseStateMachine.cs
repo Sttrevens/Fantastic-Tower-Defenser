@@ -11,9 +11,12 @@ namespace FSM
 
         public float walkSpeed = -1.0f;
         public float runSpeed = -2.0f;
-        public float hp = 4f;
+        public float maxHp = 4f;
         public float currenthp;
         private MMFeedbacks _feedbacks;
+
+        public HealthBar healthBar;
+
         private void Awake()
         {
             CurrentState = _initialState;
@@ -21,7 +24,7 @@ namespace FSM
 
         private void Start()
         {
-            currenthp = hp;
+            currenthp = maxHp;
             _feedbacks = GetComponent<MMFeedbacks>();
         }
         public BaseState CurrentState { get; set; }
@@ -34,12 +37,13 @@ namespace FSM
             {
                 Destroy(gameObject);
             }
-            Debug.Log(currenthp);
+            //Debug.Log(currenthp);
         }
 
         public void BloodMinus()
         {
             currenthp -= 1;
+            healthBar.SetHealth(currenthp, maxHp);
             _feedbacks.PlayFeedbacks();
         }
     }

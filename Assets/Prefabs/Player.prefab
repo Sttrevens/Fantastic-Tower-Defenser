@@ -243,6 +243,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8044140472986345253, guid: a3f52412483a342b2a750897e95a9747, type: 3}
   bulletSpeed: 10
   fireRate: 0.5
+  selectedCard: {fileID: 0}
 --- !u!114 &-8420023520714162344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +260,7 @@ MonoBehaviour:
   bulletSpeed: 15
   firePoint: {fileID: 7056440039855995949}
   ammoText: {fileID: 0}
-  freeAimingEnabled: 1
+  freeAimingEnabled: 0
   unitPrefab: {fileID: 617605019876173242, guid: cd8d73e8c494444d88c20f55f4c37a04, type: 3}
 --- !u!114 &352949105177743152
 MonoBehaviour:
@@ -284,6 +285,10 @@ MonoBehaviour:
   playerShooting: {fileID: -8420023520714162344}
   upSpawnPoint: {fileID: 8889586473108384364}
   downSpawnPoint: {fileID: 8294032270999982692}
+  cardAbilityDuration: 5
+  cardCoolDowns:
+  - {fileID: 42134056072935636, guid: 496a2d3f89999499b9527baaac4c74fb, type: 3}
+  - {fileID: 7647369332237619978, guid: 4f02c5bc99fb245529caa24e7f59aabe, type: 3}
 --- !u!95 &8320592636492240688
 Animator:
   serializedVersion: 5

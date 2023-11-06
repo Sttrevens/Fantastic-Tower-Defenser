@@ -22,6 +22,10 @@ public class CardInteraction : MonoBehaviour
     public Transform upSpawnPoint;
     public Transform downSpawnPoint;
 
+    public float cardAbilityDuration = 5.0f;
+
+    public CardCoolDown[] cardCoolDowns;
+
     private void Awake()
     {
         if (instance == null)
@@ -97,16 +101,22 @@ public class CardInteraction : MonoBehaviour
                 playerShooting.ActivateUnlimitedShooting();
                 if (currentCardUI)
                 {
-                    Destroy(currentCardUI);
-                    currentCardName = "";
+                    foreach (CardCoolDown cardCoolDown in cardCoolDowns)
+                    {
+                        StartCoroutine(cardCoolDown.EnlargeAndDestroy(currentCardUI, cardAbilityDuration));
+                        currentCardName = "";
+                    }
                 }
                 break;
             case "BulletTimeCard":
                 StartCoroutine(BulletTime());
                 if (currentCardUI)
                 {
-                    Destroy(currentCardUI);
-                    currentCardName = "";
+                    foreach (CardCoolDown cardCoolDown in cardCoolDowns)
+                    {
+                        StartCoroutine(cardCoolDown.EnlargeAndDestroy(currentCardUI, cardAbilityDuration));
+                        currentCardName = "";
+                    }
                 }
                 break;
         }
@@ -115,7 +125,32 @@ public class CardInteraction : MonoBehaviour
     private IEnumerator BulletTime()
     {
         Time.timeScale = 0.5f;
-        yield return new WaitForSecondsRealtime(5f); // Use real time as the game time is slowed down
+        yield return new WaitForSecondsRealtime(cardAbilityDuration); // Use real time as the game time is slowed down
         Time.timeScale = 1f;
     }
+
+    //private IEnumerator FadeOutAndDestroy(GameObject obj, float duration)
+    //{
+    //    Image image = obj.GetComponent<Image>();
+    //    SpriteRenderer sprite = obj.GetComponent<SpriteRenderer>();
+    //    float elapsedTime = 0;
+    //    Color originalColor = image != null ? image.color : sprite.color;
+
+    //    while (elapsedTime < duration)
+    //    {
+    //        elapsedTime += Time.deltaTime;
+    //        float alpha = Mathf.Clamp01(1 - (elapsedTime / duration));
+    //        if (image != null)
+    //        {
+    //            image.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+    //        }
+    //        else if (sprite != null)
+    //        {
+    //            sprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+    //        }
+    //        yield return null;
+    //    }
+
+    //    Destroy(obj);
+    //}
 }

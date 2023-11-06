@@ -10,10 +10,10 @@ namespace FSM
     {
         public override bool Decide(BaseStateMachine stateMachine)
         {
-            var hp = stateMachine.hp;
+            var maxHP = stateMachine.maxHp;
             var chp = stateMachine.currenthp;
 
-            if (chp <= hp / 2)
+            if (chp <= maxHP / 2)
             { return true; }
             else
             { return false; }

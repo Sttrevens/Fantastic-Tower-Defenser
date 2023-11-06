@@ -1519,7 +1519,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 7030822519707021754}
   fadeEffectDuration: 10
   spawnRangefrom: 6
-  spawnRangeto: 15
+  spawnRangeto: 10
 --- !u!61 &3407122363672426034
 BoxCollider2D:
   m_ObjectHideFlags: 0
